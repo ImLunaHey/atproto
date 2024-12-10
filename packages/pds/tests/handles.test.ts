@@ -1,8 +1,10 @@
-import { TestNetworkNoAppView, SeedClient } from '@atproto/dev-env'
 import { AtpAgent } from '@atproto/api'
+import { SeedClient, TestNetworkNoAppView } from '@atproto/dev-env'
 import { IdResolver } from '@atproto/identity'
-import basicSeed from './seeds/basic'
+
 import { AppContext } from '../src'
+
+import basicSeed from './seeds/basic'
 
 // outside of suite so they can be used in mock
 let alice: string
