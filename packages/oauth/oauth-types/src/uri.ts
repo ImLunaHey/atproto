@@ -2,6 +2,19 @@ import { TypeOf, ZodIssueCode, z } from 'zod'
 
 import { isHostnameIP, isLoopbackHost } from './util.js'
 
+const canParseUrl =
+  // eslint-disable-next-line n/no-unsupported-features/node-builtins
+  URL.canParse ??
+  // URL.canParse is not available in Node.js < 18.7.0
+  ((urlStr: string): boolean => {
+    try {
+      new URL(urlStr)
+      return true
+    } catch {
+      return false
+    }
+  })
+
 /**
  * Valid, but potentially dangerous URL (`data:`, `file:`, `javascript:`, etc.).
  *
@@ -11,7 +24,7 @@ export const dangerousUriSchema = z
   .string()
   .refine(
     (data): data is `${string}:${string}` =>
-      data.includes(':') && URL.canParse(data),
+      data.includes(':') && canParseUrl(data),
     {
       message: 'Invalid URL',
     },

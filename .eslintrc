@@ -1,13 +1,8 @@
 {
   "root": true,
-  // parse TypeScript files
-  // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser
-  "parser": "@typescript-eslint/parser",
-  // configure eslint using options described at
-  // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin
-  "plugins": ["@typescript-eslint", "import", "n"],
   "extends": [
     "eslint:recommended",
+    "plugin:@typescript-eslint/base",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
@@ -15,12 +10,18 @@
     "plugin:import/typescript",
     "prettier",
   ],
+  "plugins": ["n"],
   "ignorePatterns": ["dist", "node_modules"],
   "rules": {
     "no-var": "error",
     "prefer-const": "warn",
     "no-misleading-character-class": "warn",
     "eqeqeq": ["error", "always", { "null": "ignore" }],
+    "n/global-require": "error",
+    "n/no-extraneous-import": [
+      "error",
+      { "allowModules": ["@atproto/dev-env"] },
+    ],
     "n/prefer-node-protocol": "error",
     "import/export": "off",
     "import/namespace": "off",
@@ -68,6 +69,7 @@
     },
   ],
   "settings": {
+    "node": { "version": ">=18.7.0" },
     "import/internal-regex": "^@atproto/",
     "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] },
     "import/resolver": {
@@ -80,7 +82,7 @@
         ],
       },
       "node": {
-        "extensions": [".ts", ".tsx", ".json"],
+        "extensions": [".js", ".jsx", ".json"],
       },
     },
   },
