@@ -10,7 +10,7 @@ import basicSeed from './seeds/basic'
 let alice: string
 let bob: string
 
-jest.mock('dns/promises', () => {
+jest.mock('node:dns/promises', () => {
   return {
     resolveTxt: (domain: string) => {
       if (domain === '_atproto.alice.external') {
